@@ -1,0 +1,11 @@
+Dear {{ user.username }},
+
+To activate your account click on the following link:
+
+{{ url_for('accounts.activate_account', token=token, _external=True) }}
+
+If you have not requested for an account registration simply ignore this message.
+
+Sincerely,
+
+TheCryptoSense Team

@@ -1,0 +1,27 @@
+body,html{
+	height: 100%;
+}
+.HomeBackground {
+	background-image:url("Bitcoin.jpg");
+	height: 900px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-top: -5em;
+}
+.CaptionStyle{
+	margin-top: 15rem;
+	font-weight: bold;
+	font-family: "Alegreya";
+	text-align: center;
+	font-weight: bold;
+	margin-left: 350px;
+	position: absolute;
+	color: #eaac8b;
+	font-size: 30px;
+}
+.linkcolour{
+	font-family: "Alegreya";
+	color: #ffe6a7;
+	text-decoration: none;
+}

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <br>
+    {% for mess in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Hola!</strong> {{ mess }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    {% endfor %}
+    {% if current_user.is_authenticated %}
+        {{ current_user.first_name }}
+        <p>You are already logged in.</p>
+    {% else %}
+        {{ current_user.first_name }}
+    <!-- <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.email.label }}{{ form.email }}<br>
+        {{ form.password.label }}{{ form.password }}<br>
+        {{ form.submit() }}<br>
+    </form> -->
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Enter Your credentials</legend>
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label")}}
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label(class="form-control-label")}}
+                    {% if form.password.errors %}
+                        {{ form.password(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.password(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info")}}
+            </div>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Forgot passoword? <a class="ml-2" href="{{ url_for('accounts.send_password_reset_email') }}">Click Here</a>
+                </small>
+            </div>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Don't have an Account? <a class="ml-2" href="{{ url_for('accounts.register') }}">Sign up</a>
+        </small>
+    </div>
+    </div>
+    {% endif %}
+    </div>
+{% endblock content %}

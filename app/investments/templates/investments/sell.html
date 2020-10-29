@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+		<div class="content-section">
+        <div>CoinId CoinSymbol CoinName CoinPrice</div>
+            {% for coin in sell_coins_list %}
+                <p>{{ coin.id }} {{ coin.symbol }} {{ coin.coin_name }}
+                    {{ coin.current_price }} {{ coin.current_holding }} {{ coin.number_of_coins }}</p>
+            {% endfor %}
+            <form method="post" action="{{ url_for('investments.confirm_sell', username=current_user.username) }}">
+                <input type="text" name="coin_name">
+                <input type="text" name="coin_conversion_rate">
+                <input type="text" name="sell_amount">
+                <input type="submit">
+            </form>
+    	</div>
+	</div>
+{% endblock content %}

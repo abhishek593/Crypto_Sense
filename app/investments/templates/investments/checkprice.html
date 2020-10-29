@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+	<div class="container">
+		<div class="content-section">
+        <div>CoinId CoinSymbol CoinName CoinPrice</div>
+            {% for coin in supported_currencies %}
+                <p>{{ coin.id }} {{ coin.symbol }} {{ coin.coin_name }} {{ coin.price }}</p>
+            {% endfor %}
+            <form method="post" action="{{ url_for('investments.purchase', username=current_user.username) }}">
+                <input type="text" name="coin_name">
+                <input type="text" name="coin_conversion_rate">
+                <input type="text" name="purchase_amount">
+                <input type="submit">
+            </form>
+{#			<form method="POST" action="">#}
+{#            	<fieldset class="form-group">#}
+{#                	<legend class="border-bottom mb-4">Start Your Journey</legend>#}
+{#                	<div class="form-group">#}
+{#                		<select name="Coin Name" method="GET" action="/">#}
+{#  							<option value="1" selected>Select a coin</option>#}
+{#  								{% for coin in coins[1:] %}#}
+{#    							<option value="{{coin}}">{{coin}}</option>#}
+{#  								{% endfor %}#}
+{#						</select>#}
+{#                	</div>#}
+{#            	</fieldset>#}
+{#        	</form>#}
+    	</div>
+	</div>
+{% endblock %}

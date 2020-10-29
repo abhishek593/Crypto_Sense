@@ -1,0 +1,9 @@
+We have to currently make graphs for these 3 files
+1. CoinHistoryOnAParticularDate.py
+2. CoinHistoricalData1.py
+3. CoinHistoricalData2.py
+In future we have to add more.
+How and what data will these graphs represent is written in comments.
+
+This is the place where charts will be made -   https://www.chartjs.org/
+Good samples are given. One just have to see what data is represented in these samples and change with their own data.
