@@ -151,3 +151,22 @@ def confirm_sell(username):
         return render_template('confirm_sell.html', success=success)
     else:
         return render_template('404_error')
+
+
+@investments_blueprint.route('/<username>/temp_purchase')
+@login_required
+def temp_purchase(username):
+    user = UserProfile.query.filter_by(username=username)
+    if user is not None:
+        user = user.first()
+        coin_name = request.form['coin_name']
+        coin_conversion_rate = request.form['coin_conversion_rate']
+        purchase_amount = request.form['purchase_amount']
+        values = {
+            'coin_name': coin_name,
+            'coin_conversion_rate': coin_conversion_rate,
+            'purchase_amount': purchase_amount
+        }
+        return render_template('temp_purchase.html', values=values)
+    else:
+        return render_template('404_error.html')
