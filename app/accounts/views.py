@@ -125,6 +125,9 @@ def reset_password(token):
                 return redirect(url_for('accounts.login'))
             else:
                 flash('Passwords does not match.')
+                form = ResetPasswordForm()
+                return render_template('reset_password.html', form=form)
         else:
             flash('Invalid Token. Please obtain a new token.')
+            return redirect(url_for('accounts.login'))
     return render_template('reset_password.html', form=form)
