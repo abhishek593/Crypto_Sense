@@ -119,9 +119,27 @@ def confirm_sell(username):
     user = UserProfile.query.filter_by(username=username)
     if user is not None:
         user = user.first()
-        coin_name = request.form['coin_name']
+        with open('app/investments/coins.json') as f:
+            supported_currencies = json.load(f)
+
         coin_conversion_rate = float(request.form['coin_conversion_rate'])
         sell_amount = float(request.form['sell_amount'])
+        print(coin_conversion_rate)
+        print(sell_amount)
+
+        coin_name = None
+        coins_list = []
+        for curr in supported_currencies:
+            coins_list.append(curr['id'])
+        prices = cg.get_price(ids=coins_list, vs_currencies='usd')
+        for curr in supported_currencies:
+            curr['price'] = prices[curr['id']]['usd']
+
+        print(prices)
+        for coin in supported_currencies:
+            if coin['price'] == coin_conversion_rate:
+                coin_name = coin['coin_name']
+                break
 
         if coin_name is None or coin_conversion_rate is None or sell_amount is None:
             return redirect(url_for('investments.sell', username=user.username))
@@ -159,8 +177,25 @@ def temp_purchase(username):
     user = UserProfile.query.filter_by(username=username)
     if user is not None:
         user = user.first()
-        coin_name = request.form['coin_name'] or None
-        coin_conversion_rate = request.form['coin_conversion_rate']
+        with open('app/investments/coins.json') as f:
+            supported_currencies = json.load(f)
+        coin_conversion_rate = float(request.form['coin_conversion_rate'])
+        coin_name = None
+
+        coins_list = []
+        for curr in supported_currencies:
+            coins_list.append(curr['id'])
+        prices = cg.get_price(ids=coins_list, vs_currencies='usd')
+        for curr in supported_currencies:
+            curr['price'] = prices[curr['id']]['usd']
+
+        print(prices)
+        for coin in supported_currencies:
+            if coin['price'] == coin_conversion_rate:
+                coin_name = coin['coin_name']
+                break
+        print(coin_name)
+        print(coin_conversion_rate)
         values = {
             'coin_name': coin_name,
             'coin_conversion_rate': coin_conversion_rate

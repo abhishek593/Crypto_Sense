@@ -1,18 +1,87 @@
+<!--<div class="container">-->
+<!--    <div class="content-section">-->
+<!--        {% for mess in get_flashed_messages() %}-->
+<!--        <div class="alert alert-warning alert-dismissible fade show" role="alert">-->
+<!--        <strong>Hola!</strong> {{ mess }}-->
+<!--        <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--        <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--        <form>-->
+<!--        <fieldset class="form-group">-->
+<!--            <legend class="border-bottom mb-4">Check Coin Price</legend>-->
+<!--            <div class="form-group">-->
+<!--                <div class="form-control-label">Coin Name:</div> -->
+<!--                <select name="Coin Name" id="CoinName">-->
+<!--                    <option value="1" selected>Select a coin</option>-->
+<!--                    {% for coin in supported_currencies %}-->
+<!--                    <option value="{{coin.price}}">{{coin.coin_name}}</option>-->
+<!--                    {% endfor %}-->
+<!--                </select>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <div class="form-control-label">Price: <span class="output"></span> </div>-->
+<!--            </div>-->
+<!--            <br><br>-->
+<!--        </fieldset>-->
+<!--        </form>-->
+<!--        <button onclick="getOption()" class="btn btn-outline-info">-->
+<!--            Check Price-->
+<!--        </button>-->
+<!--        <form method='POST' onsubmit="send();" action="{{ url_for('investments.temp_purchase', username=current_user.username ) }}" name="myform">-->
+<!--            <input type="hidden" name="coin_name" id="123" >-->
+<!--            <input type="hidden" name="coin_conversion_rate" id="abc" >-->
+<!--            <br>-->
+<!--            <button type="submit" class="btn btn-outline-info">-->
+<!--                Purchase-->
+<!--            </button>-->
+<!--        </form>-->
+<!--        <script type="text/javascript">-->
+<!--            function send(){-->
+<!--            var price = document.querySelector('#CoinName').value;-->
+<!--            var cname=document.querySelector('#CoinName').value;-->
+<!--            // {% for coin in supported_currencies %}-->
+<!--            //     {% if  coin.price|string() == price %}-->
+<!--            //         cname = "a";-->
+<!--            //     {% endif %}-->
+<!--            // {% endfor %}-->
+<!--            document.myform.coin_conversion_rate.value=price;-->
+<!--            document.myform.coin_name.value=cname;-->
+<!--            return true;-->
+<!--            } -->
+<!--        </script>-->
+<!--        <script type="text/javascript">-->
+<!--            function getOption() {-->
+<!--                selectElement =-->
+<!--                    document.querySelector('#CoinName');-->
+<!--                output = selectElement.value;-->
+<!--                document.querySelector('.output').textContent-->
+<!--                    = output;-->
+<!--            } -->
+<!--        </script>-->
+<!--    </div>-->
+<!--</div>-->
+
 {% extends 'base.html' %}
 {% block content %}
 
 <div class="container">
     <div class="content-section">
-        <!-- <div>CoinId CoinSymbol CoinName CoinPrice</div>
-            {% for coin in supported_currencies %}
-                <select> 
-                <p>{{ coin.id }} {{ coin.symbol }} {{ coin.coin_name }} {{ coin.price }}</p>
-            {% endfor %} -->
+        {% for mess in get_flashed_messages() %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Hola!</strong> {{ mess }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        {% endfor %}
         <form>
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Check Coin Price</legend>
             <div class="form-group">
-                <div class="form-control-label">Coin Name:</div> <select name="Coin Name" id="CoinName">
+                <div class="form-control-label">Coin Name:</div>
+                <select name="Coin Name" id="CoinName">
                     <option value="1" selected>Select a coin</option>
                     {% for coin in supported_currencies %}
                     <option value="{{coin.price}}">{{coin.coin_name}}</option>
@@ -29,35 +98,25 @@
             Check Price
         </button>
         <form method='POST' onsubmit="send();" action="{{ url_for('investments.temp_purchase', username=current_user.username ) }}" name="myform">
-            <input type="hidden" name="coin_name" id="123" >
-            <input type="hidden" name="coin_conversion_rate" id="abc" >
+            <input type="hidden" name="coin_conversion_rate">
             <br>
             <button type="submit" class="btn btn-outline-info">
                 Purchase
             </button>
         </form>
         <script type="text/javascript">
-            function send(){
-            var price = document.querySelector('#CoinName').value;
-            var cname=document.querySelector('#CoinName').value;
-            // {% for coin in supported_currencies %}
-            //     {% if  coin.price|string() == price %}
-            //         cname = "a";
-            //     {% endif %}
-            // {% endfor %}
-            document.myform.coin_conversion_rate.value=price;
-            document.myform.coin_name.value=cname;
-            return true;
-            } 
+            function getOption() {
+                var price = document.querySelector('#CoinName').value;
+                document.querySelector('.output').textContent
+                    = price.toString();
+            }
         </script>
         <script type="text/javascript">
-            function getOption() {
-                selectElement =
-                    document.querySelector('#CoinName');
-                output = selectElement.value;
-                document.querySelector('.output').textContent
-                    = output;
-            } 
+            function send(){
+            var price=document.querySelector('#CoinName').value;
+            document.myform.coin_conversion_rate.value=price;
+            return true;
+            }
         </script>
     </div>
 </div>

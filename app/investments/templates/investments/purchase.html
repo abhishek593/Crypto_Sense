@@ -4,6 +4,14 @@
 
 <div class="container">
     <div class="content-section">
+        {% for mess in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Hola!</strong> {{ mess }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
         <form method="POST">
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Check Coin Price</legend>
@@ -25,11 +33,18 @@
                     <input type="text" placeholder="xx.xx $">
                 </div>
                 <br><br>
-                <input type="submit" value="Purchase">
-
             </fieldset>
+        </form>
+         <form method='POST' action="{{ url_for('investments.purchase', username=current_user.username ) }}">
+            <input type="hidden" name="coin_name" value="{{values.coin_name}}">
+             <input type="hidden" name="coin_conversion_rate" value="{{values.coin_conversion_rate}}">
+             <input type="number" name="purchase_amount">
+            <br>
+            <button type="submit" class="btn btn-outline-info">
+                Purchase
+            </button>
         </form>
     </div>
 </div>
-{{values}}
+<!--{{values}}-->
 {% endblock content %}
