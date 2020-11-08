@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <br>
+    <div class="content-section">
+        {% for key, value in data.items() %}
+        <b><u>{{key}}</u></b><br>
+        {% for key1, value1 in value.items() %}
+            <ul><b>{{key1}}</b>: {{value1}}</ul>
+        {% endfor %}
+        {% endfor %}
+    </div>
+    </div>
+{% endblock content %}

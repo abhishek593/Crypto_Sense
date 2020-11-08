@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="content-section">
+        <canvas id="chart1" width="600" height="400"></canvas>
+        <br><br><br>
+        <canvas id="chart2" width="600" height="400"></canvas>
+        <br><br><br>
+        <canvas id="chart3" width="600" height="400"></canvas>
+    <script>
+        var label_a = {{ labels|tojson }};
+        var price_a = {{ prices|tojson }};
+        var market_cap_a = {{ market_cap|tojson }};
+        var total_vol_a = {{ total_volumes|tojson }};
+        var ctx = document.getElementById("chart1");
+        var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: label_a,
+            datasets : [
+            {
+        data: price_a,
+            label: "Price",
+            borderColor: "#3e95cd",
+            fill: false
+            }
+        ]
+          }
+        });
+        var ctx = document.getElementById("chart2");
+        var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: label_a,
+            datasets : [
+            {
+        data: market_cap_a,
+            label: "Market_cap",
+            borderColor: "#8e5ea2",
+            fill: false
+            }
+        ]
+          }
+        });
+        var ctx = document.getElementById("chart3");
+        var myChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: label_a,
+            datasets : [
+            {
+        data: total_vol_a,
+            label: "Total_volumes",
+            borderColor: "#3cba9f",
+            fill: false
+            }
+        ]
+          }
+        });
+    </script>
+    </div>
+    </div>
+{% endblock content %}

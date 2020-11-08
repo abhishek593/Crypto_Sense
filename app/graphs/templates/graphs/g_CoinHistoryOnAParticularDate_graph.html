@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <br>
+    <div class="content-section">
+        <canvas id="chart1" width="600" height="400"></canvas>
+        <br><br><br>
+        <canvas id="chart2" width="600" height="400"></canvas>
+    <script>
+        var label_a = {{ labels|tojson }};
+        var price_a = {{ prices|tojson }};
+        var market_cap_a = {{ market_cap|tojson }};
+        new Chart(document.getElementById("chart1"), {
+	    type: 'bar',
+	    data: {
+	      labels: label_a,
+	      datasets: [
+	        {
+	          label: "Price",
+	          backgroundColor: "#3e95cd",
+	          data: price_a
+	        }
+	      ]
+	    },
+	    options: {
+	      title: {
+	        display: true
+	      }
+	    }
+	    });
+
+	    new Chart(document.getElementById("chart2"), {
+	    type: 'bar',
+	    data: {
+	      labels: label_a,
+	      datasets: [
+	        {
+	          label: "Market Cap",
+	          backgroundColor: "#8e5ea2",
+	          data: market_cap_a
+	        }
+	      ]
+	    },
+	    options: {
+	      title: {
+	        display: true
+	      }
+	    }
+	    });
+
+    </script>
+    </div>
+    </div>
+{% endblock content %}
