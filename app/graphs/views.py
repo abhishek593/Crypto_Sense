@@ -16,9 +16,9 @@ def CoinCurrentPrice():
 	if request.method == "POST":
 		ids = (str)(request.form["id"])
 		vs_currencies = (str)(request.form["vs_currencies"])
-		include_last_update_date = (int)(request.form["include_last_update_date"])
-		include_24_hour_change = (int)(request.form["include_24_hour_change"])
-		include_market_cap = (int)(request.form["include_market_cap"])
+		include_last_update_date = (request.form["include_last_update_date"])
+		include_24_hour_change = (request.form["include_24_hour_change"])
+		include_market_cap = (request.form["include_market_cap"])
 		data = cg.get_price(ids, vs_currencies, include_market_cap=include_market_cap,
 	                    include_last_updated_at=include_last_update_date, include_24hour_change=include_24_hour_change)
 		return render_template("g_CoinCurrentPrice_values.html", data=data)
