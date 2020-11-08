@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <br>
+    <div class="content-section">
+        <legend class="border-bottom mb-4"></legend>
+        {% for value in data %}
+        {% for key1, value1 in value.items() %}
+            <ul><b>{{key1}}</b>: {{value1}}</ul>
+        {% endfor %}<br>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock content %}

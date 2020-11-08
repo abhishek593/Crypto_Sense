@@ -5,6 +5,8 @@
     {%block he%}
     {%endblock he%}
     <meta charset="utf-8">
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -23,6 +25,7 @@
                     <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="{{ url_for('home') }}">Home</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="{{ url_for('accounts.login') }}">Login</a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="{{ url_for('accounts.register') }}">Signup</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="{{ url_for('graphs.home') }}">Data</a></li>
                 </ul>
             </div>
         </div>

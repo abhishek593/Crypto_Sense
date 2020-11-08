@@ -37,6 +37,9 @@ def create_app():
     from app.investments.views import investments_blueprint
     app.register_blueprint(investments_blueprint, url_prefix="/investments")
 
+    from app.graphs.views import graphs_blueprint
+    app.register_blueprint(graphs_blueprint, url_prefix="/graphs")
+
     # from TheCryptoSense.accounts.routes import auth
     # app.register_blueprint(auth)
 
