@@ -1,65 +1,120 @@
 {% extends 'base.html' %}
 {% block content %}
-<style type="text/css">
-    .Lable{
-        font-size: 20px;
-        font-weight: 200;
-        font-family: sans-serif;
-        Color:#FFBD33;
-        position:relative;
+<style>
+    .checkprice
+    {color: #fff;}
+    .form-container{border:0px solid #fff; padding: 50px 60px; margin-top:8vh;
+        -webkit-box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
+        box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
     }
-    .Noidea:hover {
-        color: #51f54c;
-        text-decoration: none;
+    .select-box{
+    width: relative;
     }
-    .Noidea{
-        color: white;
+    .select-box select{
+        height: 42px;
+        padding: 10px 15px;
+        line-height: 18px;
+        font-size: 16px;
+        width: 100%;
+        border:2px solid #ccc;
+        border-radius: 8px;
+        -webkit-appearance: none;
+        appearance: none;   
+    }
+    .select-box:after{
+        content:"";
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        margin-top: -5px;
+        border-top: 8px solid #ccc;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+    }
+    .select-box select:focus{
+        border:2px solid green;
+    }
+    .price{
+    font-size:40px;
+    font-weight: 200;
     }
 </style>
 <div class="container">
     <div class="content-section">
-        <!-- <div>CoinId CoinSymbol CoinName CoinPrice</div>
-        {% for coin in sell_coins_list %}
-        <p>{{ coin.id }} {{ coin.symbol }} {{ coin.coin_name }}
-            {{ coin.current_price }} {{ coin.current_holding }} {{ coin.number_of_coins }}</p>
-        {% endfor %} -->
-        <form method="post" action="{{ url_for('investments.confirm_sell', username=current_user.username) }}">
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4">Check Coin Price</legend>
-                <div class="form-group">
-                    <div class="form-control-label">Coin Name:</div> <select name="Coin Name" id="CoinName">
-                        <option value="1" selected>Select a coin</option>
-                        {% for coin in sell_coins_list %}
-                        <option value="{{coin.price}}">{{coin.coin_name}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-group">
-                    <div class="form-control-label">Price: <span class="output"></span> </div>
-                </div>
-                <div class="form-group">
-                <div class="form-control-label">
-                    Amount:
-                </div>
-                </div>
-                <div class="form-group">
-                    <input type="text" placeholder="xx.xx $">
-                </div>
-
-                <input type="submit" value="Sell">
-        </form>
+    {% for mess in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Hola!</strong> {{ mess }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+</div>
+</div>
+    <div class="checkprice">
+    <div class="container-fluid bg">
+    <div class="row">
+        <div class="col-md-4 col-xs-12"></div>
+        <div class="col-md-4 col-xs-12">
+            <div  class="form-container">
+                <form>
+                    <h1 class="checkprice border-bottom mb-4">Sell a Currency</h1>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" ><font size="4px">Coin Name</font></label>
+                    </div>
+                    <div class="select-box">
+                        <select name="Coin Name" id="CoinName">
+                            <option value="1" selected>Select a coin</option>
+                            {% for coin in sell_coins_list %}
+                            <option value="{{coin.current_price}}">{{coin.coin_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" ><font size="4px">Price (in $)</font></label>
+                        <br>
+                        <font size="10px"><span class="output"></span></font>
+                    </div>
+                    <br>
+                </form>
         <button onclick="getOption()" class="btn btn-outline-info">
-            Check Price
+                Check Price
         </button>
+        <form method='POST' onsubmit="send();" action="{{ url_for('investments.confirm_sell', username=current_user.username ) }}" name="myform">
+            <input type="hidden" name="coin_conversion_rate">
+            <br>
+            <div class="form-group">
+                        <label for="exampleInputEmail1" ><font size="4px">Amount</font></label>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="$ xx.xx" name="sell_amount">
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success btn-block">
+                Sell
+            </button>
+        </form>
+    </div>
+
         <script type="text/javascript">
             function getOption() {
-                selectElement =
-                    document.querySelector('#CoinName');
-                output = selectElement.value;
+                var price = document.querySelector('#CoinName').value;
                 document.querySelector('.output').textContent
-                    = output;
+                    = price.toString();
+            }
+        </script>
+
+        <script type="text/javascript">
+            function send() {
+                price = document.querySelector('#CoinName').value;
+                document.myform.coin_conversion_rate.value = price;
+                return true;
             } 
         </script>
     </div>
+</div>
+</div>
 </div>
 {% endblock content %}

@@ -1,8 +1,8 @@
 
 body {
   background: white;
-  background-image:url("cryptocurrency.jpg");
-  height: 900px;
+  background-image:url("Bitcoin.jpg");
+  height: 100vh;
 	background-position: center;
 	background-repeat: repeat;
 	background-size: cover;
@@ -30,14 +30,14 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
-.content-section {
-  background: #817F7C;
-  opacity: 0.9;
-  padding: 10px 20px;
-  border: 1px solid #000000;
-  border-radius: 7px;
-  margin-bottom: 20px;
-}
+/*.content-section {*/
+/*  background: #817F7C;*/
+/*  opacity: 0.5;*/
+/*  padding: 10px 20px;*/
+/*  border: 1px solid #000000;*/
+/*  border-radius: 3px;*/
+/*  margin-bottom: 20px;*/
+/*}*/
 
 .article-title {
   color: #444444;
