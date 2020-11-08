@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+    <br>
+    <div class="content-section">
+        <form action="" method="POST">
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Enter Your Values</legend>
+                <div class="form-group">
+                    <label for="id">ID: </label>
+                    <input type="text" id="id" name="id"/><br><br>
+                </div>
+                <div class="form-group">
+                    <label for="vs_currency">Currency: </label>
+                    <input type="text" id="vs_currency" name="vs_currency"/><br><br>
+                </div>
+                <div class="form-group">
+                    <label for="from_time">Enter the starting date (in format dd/mm/yyyy): </label>
+                    <input type="text" id="from_time" name="from_time"/><br><br>
+                </div>
+                <div class="form-group">
+                    <label for="to_time">Enter the ending date in format dd/mm/yyyy: </label>
+                    <input type="text" id="to_time" name="to_time"/><br><br>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit"/><br><br>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    </div>
+{% endblock content %}
