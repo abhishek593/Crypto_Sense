@@ -1,6 +1,11 @@
 
 body {
   background: white;
+  background-image:url("Bitcoin.jpg");
+  height: 900px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
   color: #333333;
   margin-top: 5em;
 }
@@ -26,7 +31,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content-section {
-  background: #F5F5F5;
+  background: #817F7C;
+  opacity: 0.5;
   padding: 10px 20px;
   border: 1px solid #000000;
   border-radius: 3px;
