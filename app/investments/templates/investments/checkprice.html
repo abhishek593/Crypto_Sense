@@ -65,7 +65,47 @@
 
 {% extends 'base.html' %}
 {% block content %}
-
+<style>
+    .checkprice{
+        color: white;
+    }
+    .form-container{border:0px solid #fff; padding: 50px 60px; margin-top:8vh;
+        -webkit-box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
+        box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
+    }
+    .select-box{
+    width: relative;
+}
+.select-box select{
+    height: 42px;
+    padding: 10px 15px;
+    line-height: 18px;
+    font-size: 16px;
+    width: 100%;
+    border:2px solid #ccc;
+    border-radius: 8px;
+    -webkit-appearance: none;
+    appearance: none;   
+}
+.select-box:after{
+    content:"";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    margin-top: -5px;
+    border-top: 8px solid #ccc;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+}
+.select-box select:focus{
+    border:2px solid green;
+}
+.price{
+    font-size:40px;
+    font-weight: 800;
+}
+</style>
 <div class="container">
     <div class="content-section">
         {% for mess in get_flashed_messages() %}
@@ -76,34 +116,46 @@
         </button>
         </div>
         {% endfor %}
-        <form>
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Check Coin Price</legend>
-            <div class="form-group">
-                <div class="form-control-label">Coin Name:</div>
-                <select name="Coin Name" id="CoinName">
-                    <option value="1" selected>Select a coin</option>
-                    {% for coin in supported_currencies %}
-                    <option value="{{coin.price}}">{{coin.coin_name}}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="form-group">
-                <div class="form-control-label">Price: <span class="output"></span> </div>
-            </div>
-            <br><br>
-        </fieldset>
-        </form>
+    </div>
+</div>
+<div class="checkprice">
+<div class="container-fluid bg">
+    <div class="row">
+        <div class="col-md-4 col-xs-12"></div>
+        <div class="col-md-4 col-xs-12">
+            <div  class="form-container">
+                <form>
+                    <h1 class="checkprice border-bottom mb-4">Check Coin Price</h1>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" ><font size="4px">Coin Name</font></label>
+                    </div>
+                    <div class="select-box">
+                        <select name="Coin Name" id="CoinName">
+                            <option value="1" selected>Select a coin</option>
+                            {% for coin in supported_currencies %}
+                            <option value="{{coin.price}}">{{coin.coin_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br><br>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1" ><font size="4px">Price (in $)</font></label>
+                            <br>
+                        <font size="10px"><span class="output"></span></font> 
+                    </div>
+                    <br><br>
+                </form>
         <button onclick="getOption()" class="btn btn-outline-info">
             Check Price
         </button>
         <form method='POST' onsubmit="send();" action="{{ url_for('investments.temp_purchase', username=current_user.username ) }}" name="myform">
             <input type="hidden" name="coin_conversion_rate">
             <br>
-            <button type="submit" class="btn btn-outline-info">
+            <button type="submit" class="btn btn-success btn-block">
                 Purchase
             </button>
         </form>
+    </div>
         <script type="text/javascript">
             function getOption() {
                 var price = document.querySelector('#CoinName').value;
@@ -119,5 +171,7 @@
             }
         </script>
     </div>
+</div>
+</div>
 </div>
 {% endblock %}

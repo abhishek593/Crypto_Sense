@@ -1,14 +1,14 @@
 
-/*body {*/
-/*  background: white;*/
-/*  !*background-image:url("Bitcoin.jpg");*!*/
-/*  !*height: 900px;*!*/
-/*	!*background-position: center;*!*/
-/*	!*background-repeat: no-repeat;*!*/
-/*	!*background-size: cover;*!*/
-/*  color: #333333;*/
-/*  margin-top: 5em;*/
-/*}*/
+body {
+  background: white;
+  background-image:url("Bitcoin.jpg");
+  height: 100vh;
+	background-position: center;
+	background-repeat: repeat;
+	background-size: cover;
+  color: #333333;
+  margin-top: 5em;
+}
 
 h1, h2, h3, h4, h5, h6 {
   color: #444444;

@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+*{
+    color:white;
+}
+</style>
     <div class="container">
     <br>
     {% for mess in get_flashed_messages() %}
