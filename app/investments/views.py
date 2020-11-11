@@ -138,7 +138,7 @@ def confirm_sell(username):
         print(prices)
         for coin in supported_currencies:
             if coin['price'] == coin_conversion_rate:
-                coin_name = coin['coin_name']
+                coin_name = coin['id']
                 break
 
         if coin_name is None or coin_conversion_rate is None or sell_amount is None:
@@ -192,7 +192,7 @@ def temp_purchase(username):
         print(prices)
         for coin in supported_currencies:
             if coin['price'] == coin_conversion_rate:
-                coin_name = coin['coin_name']
+                coin_name = coin['id']
                 break
         print(coin_name)
         print(coin_conversion_rate)
