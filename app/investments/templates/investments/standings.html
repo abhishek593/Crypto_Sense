@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for stand in standings %}
+{% for val in stand %}
+{{val}}
+{% endfor %}
+{% endfor %}
+{% endblock content %}

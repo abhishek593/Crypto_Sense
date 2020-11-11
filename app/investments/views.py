@@ -2,9 +2,11 @@ from flask import Blueprint, render_template, redirect, request, url_for, flash,
 from flask_login import login_user, login_required, logout_user, current_user
 from app.models import UserProfile, Investment, Transaction
 import json
+import datetime
 from app.models import UserProfile
 from app import db
 from pycoingecko import CoinGeckoAPI
+
 cg = CoinGeckoAPI()
 
 investments_blueprint = Blueprint('investments', __name__, template_folder='templates/investments')
@@ -17,7 +19,18 @@ def dashboard(username):
     if user is not None:
         user = user.first()
         user_coin_investments_list = user.coin_investments
-        return render_template('dashboard.html', user_coin_investments_list=user_coin_investments_list, user=user)
+        user_coin_list = []
+        total_profits = 1000 - user.balance
+        for invs in user_coin_investments_list:
+            user_coin_list.append(invs.coin_name)
+        prices = cg.get_price(ids=user_coin_list, vs_currencies='usd')
+        # print(prices)
+        user_coin_list = []
+        for invs in user_coin_investments_list:
+            total_profits += invs.number_of_coins * prices[invs.coin_name]['usd']
+        # print(total_profits)
+        return render_template('dashboard.html', user_coin_investments_list=user_coin_investments_list,
+                               user_coin_list=user_coin_list, prices=prices, user=user, total_profits=total_profits)
     else:
         return render_template('404_error')
 
@@ -203,3 +216,31 @@ def temp_purchase(username):
         return render_template('purchase.html', values=values)
     else:
         return render_template('404_error.html')
+
+
+@investments_blueprint.route('/standings')
+def standings():
+    users = UserProfile.query.all()
+    stands = []
+
+    with open('app/investments/coins.json') as f:
+        supported_currencies = json.load(f)
+    coins_list = []
+    for curr in supported_currencies:
+        coins_list.append(curr['id'])
+    prices = cg.get_price(ids=coins_list, vs_currencies='usd')
+    for curr in supported_currencies:
+        curr['price'] = prices[curr['id']]['usd']
+
+    for user in users:
+        coin_investments = user.coin_investments
+        profit = 1000 - user.balance
+        for coin_instance in coin_investments:
+            transactions = coin_instance.coin_transactions
+            for trans in transactions:
+                if trans.date >= datetime.date.today() - datetime.timedelta(days=7):
+                    profit += trans.total_price
+        obj = [profit, user.username]
+        stands.append(obj)
+    stands.sort()
+    return render_template('standings.html', standings=stands)
