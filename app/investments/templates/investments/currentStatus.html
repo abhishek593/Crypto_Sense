@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+	.content-table{
+		min-height: 300px;
+		min-width: 500px;
+        border-collapse: collapse;
+        margin-top:40vh;
+        font-size: 1.5em;
+        color: #fff;
+        min-width: : 400px;
+        border-radius: 10px 10px 0 0;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0,0,0,0.15);
+      }
+      .content-table thead tr{
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+        font-weight: bold;
+      }
+      .content-table td{
+        padding: 12px 15px;
+      }
+      .content-table th{
+      	padding: 15px 15px;
+      }
+      .content-table tbody tr{
+        border-bottom: 1px solid #dddddd;
+      }
+      .content-table tbody tr{
+        background-color: #f3f3f3;
+        opacity: 0.8;
+       	color: #000000;
+      }
+      .content-table tbody tr:last-of-type{
+        border-bottom: 4px solid #009879;
+      }
+</style>
+<center>
+<div class="container">
+<table class="content-table">
+    <thead>
+          <th height="20px">COIN NAME</th>
+          <th height="20px">COIN AMOUNT</th>
+    </thead>
+    {% for coin in user_coin_investments_list %}
+    <tr>
+       <td style="text-transform: capitalize">{{coin.coin_name}}</td>
+       <td>{{coin.number_of_coins  * prices[coin.coin_name]['usd']}}</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+</center>
+{% endblock content %}

@@ -20,7 +20,30 @@ def dashboard(username):
         user = user.first()
         user_coin_investments_list = user.coin_investments
         user_coin_list = []
-        total_profits = 1000 - user.balance
+        total_profits = 0
+        for invs in user_coin_investments_list:
+            user_coin_list.append(invs.coin_name)
+        prices = cg.get_price(ids=user_coin_list, vs_currencies='usd')
+        # print(prices)
+        user_coin_list = []
+        for invs in user_coin_investments_list:
+            total_profits += invs.number_of_coins * prices[invs.coin_name]['usd']
+        total_profits=round(total_profits,2)
+        # print(total_profits)
+        return render_template('dashboard.html', user_coin_investments_list=user_coin_investments_list,
+                               user_coin_list=user_coin_list, prices=prices, user=user, total_profits=total_profits)
+    else:
+        return render_template('404_error')
+
+@investments_blueprint.route('/<username>/current_status')
+@login_required
+def current_status(username):
+    user = UserProfile.query.filter_by(username=username)
+    if user is not None:
+        user = user.first()
+        user_coin_investments_list = user.coin_investments
+        user_coin_list = []
+        total_profits = 0
         for invs in user_coin_investments_list:
             user_coin_list.append(invs.coin_name)
         prices = cg.get_price(ids=user_coin_list, vs_currencies='usd')
@@ -29,7 +52,7 @@ def dashboard(username):
         for invs in user_coin_investments_list:
             total_profits += invs.number_of_coins * prices[invs.coin_name]['usd']
         # print(total_profits)
-        return render_template('dashboard.html', user_coin_investments_list=user_coin_investments_list,
+        return render_template('currentStatus.html', user_coin_investments_list=user_coin_investments_list,
                                user_coin_list=user_coin_list, prices=prices, user=user, total_profits=total_profits)
     else:
         return render_template('404_error')
@@ -166,7 +189,7 @@ def confirm_sell(username):
         if coin_investment_instance is None:
             flash("You don't have any holdings of this coin.")
         else:
-            if coin_investment_instance.total_price >= sell_amount:
+            if coin_investment_instance.number_of_coins * prices[coin_investment_instance.coin_name]['usd']>= sell_amount:
                 coin_investment_instance.number_of_coins -= number_of_coins
                 coin_investment_instance.total_price -= sell_amount
                 db.session.add(coin_investment_instance)

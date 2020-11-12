@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+	.decorate{
+		color: #fff;
+        text-align: center;
+        font-size: 60px;
+        margin-top: 15rem;
+        font-family: sans-serif;
+	}
+	.setwidth{
+		width: 200px;
+	}
+</style>
+<div class="decorate">
     {% if success %}
         <p>Successfull!</p>
 
@@ -8,4 +21,9 @@
     {% else %}
         <p>Not successfull!</p>
     {% endif %}
+    <br>
+    <center>
+	    <a class="btn btn-success btn-block setwidth" href="{{url_for('investments.dashboard',username=current_user.username)}}" role="button">Go back to Dashboard &raquo;</a></p>
+		</center>
+</div>
 {% endblock content %}

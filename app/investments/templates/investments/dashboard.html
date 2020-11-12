@@ -17,8 +17,8 @@
 <link href="../assets/dist/css/bootstrap.css" rel="stylesheet">
 
     <style>
-        body {
-            padding-top: 3.5rem;
+        *{
+          font-family: 'lato', sans-serif;
         }
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -32,59 +32,80 @@
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
+          text-align: center;
         }
       }
+      .coloring{
+        color: #fff;
+      }
+      .section-format{
+        color: #fff;
+        background-color: #2B2C2D;
+        min-width: 300px;
+        min-height: 300px;
+        font-weight: 1;
+        text-align: center;
+        border-radius: 4px;
+        border: 1px ;
+        padding-top: 50px;
+      }
+      .dash{
+        color: yellow;
+        text-align: center;
+        margin-top: 15rem;
+      }
+      .size{
+        min-width: 150px;
+        background-color: #72EEE8;
+        color: #000;
+      }
+      
     </style>
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
-  </head>
-  <body>
 
-<main role="main">
-
-  <!-- Main jumbotron for a primary marketing message or call to action -->
-  <div class="jumbotron">
-    <div class="container">
-      <div>
-        <h1 class="display-3">Hello {{current_user.username}}</h1>
-        <h3>Current Balance: {{current_user.balance}}</h3>
-      </div>
-      <p>Welcome to CryptoSense! A realtime cryptocurrency trading platform.</p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">How it works? &raquo;</a></p>
-    </div>
-  </div>
-
+<div class="bi">
   <div class="container">
+    <div class="dash">
+          <p style="color: yellow; font-size: 100px; font-weight: 500; text-transform: capitalize;">Hello {{current_user.username}}</p>
+          <p style="color: white; font-size: 36px;">Welcome to CryptoSense! A realtime cryptocurrency trading platform.</p><br><br><br><br><br>
+          <p style="color: white; font-size: 70px; text-transform: capitalize;">Current Balance: $ {{current_user.balance}}</p>
+          
+          <p><a class="btn btn-primary btn-lg" href="{{url_for('investments.current_status',username=current_user.username)}}" role="button">Current Status &raquo;</a></p>
+    </div>
+          <p style="color: white; font-size: 80px; font-weight: 500; text-align: center;">Profit Earned: ${{total_profits}} </p>
+  </div>
+<br><br>
+  <div class="container">
+    
     <!-- Example row of columns -->
     <div class="row">
-      <div class="col-md-4">
-        <h2>Check Inventory</h2>
-        <p></p>
-        <p><a class="btn btn-secondary" href="{{url_for('investments.checkprice',username=current_user.username)}}" role="button">Check Current Prices &raquo;</a></p>
+      <div class="col-md-4" >
+        <div class="section-format">
+          <h2 class="coloring">CHECK INVENTORY</h2><br><BR>
+          <p>Check the price of currencies and Purchase some to make profits</p>
+          <p><a class="btn btn-secondary size" href="{{url_for('investments.checkprice',username=current_user.username)}}" role="button">Check Current Prices &raquo;</a></p>
+        </div>
       </div>
       <div class="col-md-4">
-        <h2>Heading</h2>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+        <div class="section-format">
+        <h2 class="coloring">SELL</h2><BR><BR>
+        <p>Check the price and Sell your purchased currencies to make profits</p>
+        <p><a class="btn btn-secondary size" href="{{url_for('investments.sell',username=current_user.username)}}" role="button">Sell &raquo;</a></p>
+      </div>
       </div>
       <div class="col-md-4">
-        <h2>Sell</h2>
-        <p>Single stop solution to sell currency you have purchased and get some profits.Please click on the link to go to the sell page and sell the currency.</p>
-        <p><a class="btn btn-secondary" href="{{url_for('investments.sell',username=current_user.username)}}" role="button">Sell &raquo;</a></p>
+        <div class="section-format">
+          <h2 class="coloring">STANDINGS</h2><br><br>
+          <p>Take a look at the top profiters of all time in on CryptoSense!</p>
+          <p><a class="btn btn-secondary size" href="{{url_for('investments.sell',username=current_user.username)}}" role="button">Standings &raquo;</a></p>
+        </div>
       </div>
     </div>
-
+</div>
     <hr>
-
-  </div> <!-- /container -->
-
-</main>
-
-<footer class="container">
-  <p>&copy; Company 2017-2020</p>
-</footer>
+  </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.js"></script></body>
-</html>
 
 {% endblock content %}

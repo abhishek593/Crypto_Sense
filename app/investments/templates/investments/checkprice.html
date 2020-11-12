@@ -70,41 +70,41 @@
         color: white;
     }
     .form-container{border:0px solid #fff; padding: 50px 60px; margin-top:8vh;
-        -webkit-box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
-        -moz-box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
-        box-shadow: -1px 7px 20px 12px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 10px 0px 112px 53px rgba(0,0,0,0.75);
+        -moz-box-shadow: 10px 0px 112px 53px rgba(0,0,0,0.75);
+        box-shadow: 10px 0px 112px 53px rgba(0,0,0,0.75);
     }
     .select-box{
     width: relative;
-}
-.select-box select{
-    height: 42px;
-    padding: 10px 15px;
-    line-height: 18px;
-    font-size: 16px;
-    width: 100%;
-    border:2px solid #ccc;
-    border-radius: 8px;
-    -webkit-appearance: none;
-    appearance: none;   
-}
-.select-box:after{
-    content:"";
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    margin-top: -5px;
-    border-top: 8px solid #ccc;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-}
-.select-box select:focus{
-    border:2px solid green;
-}
-.price{
-    font-size:40px;
-    font-weight: 800;
-}
+    }
+    .select-box select{
+        height: 42px;
+        padding: 10px 15px;
+        line-height: 18px;
+        font-size: 16px;
+        width: 100%;
+        border:2px solid #ccc;
+        border-radius: 8px;
+        -webkit-appearance: none;
+        appearance: none;   
+    }
+    .select-box:after{
+        content:"";
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        margin-top: -5px;
+        border-top: 8px solid #ccc;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+    }
+    .select-box select:focus{
+        border:2px solid green;
+    }
+    .price{
+        font-size:40px;
+        font-weight: 800;
+    }
 </style>
 <div class="container">
     <div class="content-section">
@@ -145,7 +145,7 @@
                     </div>
                     <br><br>
                 </form>
-        <button onclick="getOption()" class="btn btn-outline-info">
+        <button onclick="getOption()" class="btn btn-primary ">
             Check Price
         </button>
         <form method='POST' onsubmit="send();" action="{{ url_for('investments.temp_purchase', username=current_user.username ) }}" name="myform">
