@@ -20,13 +20,13 @@ def welcome_user():
 def logout():
     logout_user()
     flash('Logged out!')
-    return redirect(url_for('accounts.welcome_user'))
+    return redirect(url_for('investments.dashboard', username=current_user.username))
 
 
 @accounts_blueprint.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('accounts.welcome_user'))
+        return redirect(url_for('investments.dashboard', username=current_user.username))
     form = LoginForm(request.form)
     if form.validate_on_submit():
         user = UserProfile.query.filter_by(email=form.email.data).first()
@@ -36,7 +36,7 @@ def login():
             flash('Logged in Successfully')
             nxt = request.args.get('next')
             if nxt is None or nxt[0] == '/':
-                nxt = url_for('accounts.welcome_user')
+                nxt = url_for('investments.dashboard', username=current_user.username)
 
             return redirect(nxt)
         else:
@@ -47,7 +47,7 @@ def login():
 @accounts_blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('accounts.welcome_user'))
+        return redirect(url_for('investments.dashboard', username=current_user.username))
     form = RegistrationForm()
     if form.validate_on_submit():
         email = form.email.data
@@ -77,7 +77,7 @@ def register():
 @accounts_blueprint.route('/activate_account/<token>', methods=['GET', 'POST'])
 def activate_account(token):
     if current_user.is_authenticated:
-        return redirect(url_for('accounts.welcome_user'))
+        return redirect(url_for('investments.dashboard', username=current_user.username))
     user = UserProfile.verify_reset_password_token(token=token)
     if user is not None:
         user.is_active = True
@@ -111,7 +111,7 @@ def send_password_reset_email():
 @accounts_blueprint.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
     if current_user.is_authenticated:
-        return redirect(url_for('accounts.welcome_user'))
+        return redirect(url_for('investments.dashboard', username=current_user.username))
     form = ResetPasswordForm()
     if form.validate_on_submit():
         user = UserProfile.verify_reset_password_token(token=token)

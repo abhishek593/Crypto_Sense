@@ -197,6 +197,8 @@ def confirm_sell(username):
                 transaction = Transaction(investment_id=coin_investment_instance.id, coin_name=coin_name,
                                           number_of_coins=number_of_coins, total_price=sell_amount)
                 db.session.add(transaction)
+                if coin_investment_instance.number_of_coins <= 0:
+                    db.session.delete(coin_investment_instance)
                 db.session.commit()
                 user.balance += sell_amount
                 db.session.add(user)
