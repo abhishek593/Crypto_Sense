@@ -2,7 +2,7 @@ body,html{
 	height: 100%;
 }
 .HomeBackground {
-	background-image:url("bg1.jpg");
+	background-image:url("background.jpg");
 	height: 900px;
 	background-position: center;
 	background-repeat: no-repeat;
