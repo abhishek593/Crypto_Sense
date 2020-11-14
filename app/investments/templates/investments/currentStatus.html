@@ -45,10 +45,13 @@
           <th height="20px">COIN AMOUNT</th>
     </thead>
     {% for coin in user_coin_investments_list %}
-    <tr>
-       <td style="text-transform: capitalize">{{coin.coin_name}}</td>
+      {% if coin.number_of_coins!=0 %}
+      <tr>
+       <td style="text-transform: capitalize">
+       {{coin.coin_name}}</td>
        <td>{{coin.number_of_coins  * prices[coin.coin_name]['usd']}}</td>
-    </tr>
+       </tr>
+       {%endif%}
     {% endfor %}
 </table>
 </div>
