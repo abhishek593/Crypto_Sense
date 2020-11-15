@@ -20,7 +20,7 @@ def welcome_user():
 def logout():
     logout_user()
     flash('Logged out!')
-    return redirect(url_for('investments.dashboard', username=current_user.username))
+    return render_template('logout.html')
 
 
 @accounts_blueprint.route('/login', methods=['GET', 'POST'])

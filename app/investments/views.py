@@ -27,8 +27,8 @@ def dashboard(username):
         # print(prices)
         user_coin_list = []
         for invs in user_coin_investments_list:
-            total_profits += invs.number_of_coins * prices[invs.coin_name]['usd']
-        total_profits=round(total_profits,2)
+            total_profits += invs.number_of_coins * prices[invs.coin_name]['usd'] - invs.total_price
+        total_profits=round(total_profits, 2)
         # print(total_profits)
         return render_template('dashboard.html', user_coin_investments_list=user_coin_investments_list,
                                user_coin_list=user_coin_list, prices=prices, user=user, total_profits=total_profits)
@@ -259,12 +259,13 @@ def standings():
 
     for user in users:
         coin_investments = user.coin_investments
-        profit = 1000 - user.balance
+        profit = 0.0
         for coin_instance in coin_investments:
             transactions = coin_instance.coin_transactions
             for trans in transactions:
                 if trans.date >= datetime.date.today() - datetime.timedelta(days=7):
                     profit += trans.total_price
+            profit -= coin_instance.total_price
         obj = [profit, user.username]
         stands.append(obj)
     stands.sort()
