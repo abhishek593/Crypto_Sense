@@ -7,11 +7,14 @@ cg = CoinGeckoAPI()
 
 graphs_blueprint = Blueprint('graphs', __name__, template_folder='templates/graphs')
 
+coins_list = cg.get_coins_list()
+vs_list = cg.get_supported_vs_currencies()
+
+
 
 @graphs_blueprint.route('/g_main')
 def home():
     return render_template('g_home.html')
-
 
 @graphs_blueprint.route('/g_CoinCurrentPrice', methods=['POST', 'GET'])
 def CoinCurrentPrice():
@@ -52,7 +55,7 @@ def CoinHistoricalData1():
         return render_template('g_CoinHistoricalData1_graph.html', prices=prices, market_cap=market_cap,
                                total_volumes=total_volumes, labels=labels)
     else:
-        return render_template('g_CoinHistoricalData1.html')
+        return render_template('g_CoinHistoricalData1.html', c_data=coins_list, v_data=vs_list)
 
 
 @graphs_blueprint.route('/g_CoinHistoricalData2', methods=['POST', 'GET'])
@@ -82,7 +85,7 @@ def CoinHistoricalData2():
         return render_template('g_CoinHistoricalData2_graph.html', prices=prices, market_cap=market_cap,
                                total_volumes=total_volumes, labels=labels)
     else:
-        return render_template('g_CoinHistoricalData2.html')
+        return render_template('g_CoinHistoricalData2.html', c_data=coins_list, v_data=vs_list)
 
 
 @graphs_blueprint.route('/g_CoinHistoryOnAParticularDate', methods=['POST', 'GET'])
@@ -95,17 +98,19 @@ def CoinHistoryOnAParticularDate():
         prices = []
         market_cap = []
         for key, val in data['current_price'].items():
-            labels.append(key)
-            prices.append(val)
+            if(key not in ["vef", "vnd", "idr", "mmk", "krw", "clp", "ngn", "huf"]):
+                labels.append(key)
+                prices.append(val)
+                
+        for key, val in data['market_cap'].items():
+            if(key not in ["vef", "vnd", "idr", "mmk", "krw", "clp", "ngn", "huf"]):
+                market_cap.append(val)
 
-        market_cap = []
-        for val in data['market_cap'].values():
-            market_cap.append(val)
 
         return render_template('g_CoinHistoryOnAParticularDate_graph.html', prices=prices, market_cap=market_cap,
                                labels=labels)
     else:
-        return render_template('g_CoinHistoryOnAParticularDate.html')
+        return render_template('g_CoinHistoryOnAParticularDate.html', c_data=coins_list)
 
 
 @graphs_blueprint.route('/g_CoinMarketData', methods=['POST', 'GET'])
@@ -116,16 +121,14 @@ def CoinMarketData():
         val = data["market_cap_rank"]
         return render_template('g_CoinMarketData_value.html', value=val)
     else:
-        return render_template('g_CoinMarketData.html')
+        return render_template('g_CoinMarketData.html', c_data=coins_list)
 
 
 @graphs_blueprint.route('/g_CoinsList')
 def CoinsList():
-    coins_list = cg.get_coins_list()
     return render_template('g_CoinsList.html', data=coins_list)
 
 
 @graphs_blueprint.route('/g_SupportedTargetCurrencies')
 def SupportedTargetCurrencies():
-    data = cg.get_supported_vs_currencies()
-    return render_template('g_SupportedTargetCurrencies.html', data=data)
+    return render_template('g_SupportedTargetCurrencies.html', data=vs_list)

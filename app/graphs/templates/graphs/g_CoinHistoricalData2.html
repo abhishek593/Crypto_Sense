@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    legend{
+        color:white;
+    }
+    label{
+        color:white;
+    }
+</style>
     <div class="container">
     <br>
     <div class="content-section">
@@ -8,23 +16,33 @@
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Enter Your Values</legend>
                 <div class="form-group">
-                    <label for="id">ID: </label>
-                    <input type="text" id="id" name="id"/><br><br>
+                    <label for="id">ID:</label><br>
+                    <select placeholder="Choose an ID" class="form-control" name="id" id="id">
+                        <option value="" disabled selected>Select your ID</option>
+                      {% for val in c_data %}
+                            <option value="{{val['id']}}">{{val['name']}}</option>
+                      {% endfor %}
+                    </select><br><br>
                 </div>
                 <div class="form-group">
-                    <label for="vs_currency">Currency: </label>
-                    <input type="text" id="vs_currency" name="vs_currency"/><br><br>
+                    <label for="vs_currency">Currency:</label><br>
+                    <select class="form-control" name="vs_currency" id="vs_currency">
+                        <option value="" disabled selected>Select your currency</option>
+                      {% for val in v_data %}
+                            <option value="{{val}}">{{val}}</option>
+                      {% endfor %}
+                    </select><br><br>
                 </div>
                 <div class="form-group">
-                    <label for="from_time">Enter the starting date (in format dd/mm/yyyy): </label>
-                    <input type="text" id="from_time" name="from_time"/><br><br>
+                    <label for="from_time">Enter the starting date (in format dd/mm/yyyy):</label><br>
+                    <input placeholder="eg: 01/01/2020" class="form-control" type="text" id="from_time" name="from_time"/><br><br>
                 </div>
                 <div class="form-group">
-                    <label for="to_time">Enter the ending date in format dd/mm/yyyy: </label>
-                    <input type="text" id="to_time" name="to_time"/><br><br>
+                    <label for="to_time">Enter the ending date in format dd/mm/yyyy:</label><br>
+                    <input placeholder="eg: 03/01/2020" class="form-control" type="text" id="to_time" name="to_time"/><br><br>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Submit"/><br><br>
+                    <input class="btn btn-primary" type="submit" value="Submit"/><br><br>
                 </div>
             </fieldset>
         </form>
