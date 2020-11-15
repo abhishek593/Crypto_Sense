@@ -25,7 +25,7 @@ def create_app():
     app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
     app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
 
-    app.config['ADMINS'] = os.environ.get('MAIL_USERNAME')
+    app.config['ADMINS'] = [os.environ.get('MAIL_USERNAME')]
     db.init_app(app=app)
     migrate.init_app(app, db)
     mail.init_app(app)
