@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+	.items{
+		color: white;
+		font-size: 25px;
+	}
+</style>
+<div class="container">
+<p style="color: white; font-size: 50px; text-align: center; text-decoration: underline;">Help</p>
+
+<ol>
+	<li class="items">Create a Login Id and Password using an E-mail ID. <a href="{{ url_for('accounts.register') }}" style="color: Yellow"> Register Now</a></li>
+	<li class="items">Verify your Email by clicking on the activation link sent on registered E-mail.</li>
+	<li class="items">Login to your Account<a href="{{ url_for('accounts.login') }}" style="color: Yellow"> Login</a></li>
+	<li class="items">You will be given an initial credit of  1000 $</li>
+	<li class="items">Click on Check Prices button to know about the prices of cryptocurrencies and purchase them</li>
+	<li class="items">Purchase a crypto currency</li>
+	<li class="items">Now you can check the profits earned on the dashboard and also check the currencies you have on Current Status button</li>
+	<li class="items">To sell a currency click on sell button on dashboard and sell the currency you like</li>
+	<ul>
+		<li class="items"> You check the trends of Currencies on the Data tab of our Navigation bar for reference on the prices fluctuations on various days and range of days</li>
+		<li class="items"> You can also check the supported currencies and their symbol,ID and Market Cap from the Data tab</li> 
+	</ul>
+	<li class="items"> Compare your profits with our all time best profiters on Standings tab!</li>
+ </ol>
+</div>
+{% endblock content %}

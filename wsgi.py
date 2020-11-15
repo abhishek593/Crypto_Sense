@@ -11,6 +11,9 @@ with app.app_context():
 def home():
     return render_template('home.html')
 
+@app.route('/help')
+def help():
+    return render_template('help.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
