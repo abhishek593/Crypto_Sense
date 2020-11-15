@@ -117,9 +117,11 @@ def CoinHistoryOnAParticularDate():
 def CoinMarketData():
     if request.method == "POST":
         id = request.form["id"]
-        data = cg.get_coin_by_id(id)['market_data']
-        val = data["market_cap_rank"]
-        return render_template('g_CoinMarketData_value.html', value=val)
+        data = cg.get_coin_by_id(id)
+        sym= data["symbol"]
+        val = data['market_data']["market_cap_rank"]
+        link_home= data["links"]["homepage"][0]
+        return render_template('g_CoinMarketData_value.html', value=val, sym=sym, link_home=link_home)
     else:
         return render_template('g_CoinMarketData.html', c_data=coins_list)
 
