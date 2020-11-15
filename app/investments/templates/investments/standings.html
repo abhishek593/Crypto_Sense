@@ -2,8 +2,6 @@
 
 {% block content %}
 {% for stand in standings %}
-{% for val in stand %}
-{{val}}
-{% endfor %}
+{{ stand[0]}} {{stand[1]}}
 {% endfor %}
 {% endblock content %}

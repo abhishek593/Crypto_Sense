@@ -25,15 +25,15 @@ def dashboard(username):
             user_coin_list.append(invs.coin_name)
         prices = cg.get_price(ids=user_coin_list, vs_currencies='usd')
         # print(prices)
-        user_coin_list = []
         for invs in user_coin_investments_list:
             total_profits += invs.number_of_coins * prices[invs.coin_name]['usd'] - invs.total_price
-        total_profits=round(total_profits, 2)
+        total_profits = round(total_profits, 2)
         # print(total_profits)
         return render_template('dashboard.html', user_coin_investments_list=user_coin_investments_list,
                                user_coin_list=user_coin_list, prices=prices, user=user, total_profits=total_profits)
     else:
         return render_template('404_error')
+
 
 @investments_blueprint.route('/<username>/current_status')
 @login_required
@@ -189,7 +189,8 @@ def confirm_sell(username):
         if coin_investment_instance is None:
             flash("You don't have any holdings of this coin.")
         else:
-            if coin_investment_instance.number_of_coins * prices[coin_investment_instance.coin_name]['usd']>= sell_amount:
+            if coin_investment_instance.number_of_coins * prices[coin_investment_instance.coin_name][
+                'usd'] >= sell_amount:
                 coin_investment_instance.number_of_coins -= number_of_coins
                 coin_investment_instance.total_price -= sell_amount
                 db.session.add(coin_investment_instance)
@@ -258,15 +259,15 @@ def standings():
         curr['price'] = prices[curr['id']]['usd']
 
     for user in users:
-        coin_investments = user.coin_investments
         profit = 0.0
-        for coin_instance in coin_investments:
-            transactions = coin_instance.coin_transactions
-            for trans in transactions:
-                if trans.date >= datetime.date.today() - datetime.timedelta(days=7):
-                    profit += trans.total_price
-            profit -= coin_instance.total_price
+        user_coin_list = []
+        for invs in user.coin_investments:
+            user_coin_list.append(invs.coin_name)
+        prices = cg.get_price(ids=user_coin_list, vs_currencies='usd')
+        for invs in user.coin_investments:
+            if invs.coin_name in prices.keys():
+                profit += invs.number_of_coins * prices[invs.coin_name]['usd'] - invs.total_price
         obj = [profit, user.username]
         stands.append(obj)
-    stands.sort()
+    stands.sort(reverse=True)
     return render_template('standings.html', standings=stands)
