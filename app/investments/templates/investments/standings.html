@@ -4,18 +4,18 @@
 <style>
 	.content-table{
 		min-height: 300px;
-		min-width: 500px;
+		min-width: 1000px;
         border-collapse: collapse;
-        margin-top:40vh;
+        margin-top:20vh;
         font-size: 1.5em;
         color: #fff;
         min-width: : 400px;
-        border-radius: 10px 10px 0 0;
+        border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 0 20px rgba(0,0,0,0.15);
       }
       .content-table thead tr{
-        background-color: #009879;
+        background-color: #0E4D92;
         color: #ffffff;
         text-align: left;
         font-weight: bold;
@@ -35,7 +35,7 @@
        	color: #000000;
       }
       .content-table tbody tr:last-of-type{
-        border-bottom: 4px solid #009879;
+        border-bottom: 4px solid #0E4D92;
       }
 </style>
 <center>
@@ -51,7 +51,7 @@
        	<td>{{loop.index}}</td>
        <td style="text-transform: uppercase">
        {{stand[1]}}</td>
-       <td>{{stand[0]}}</td>
+       <td>{{stand[0]}} USD</td>
        </tr>
     	{% endfor %}
 </table>

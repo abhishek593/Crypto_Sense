@@ -10,7 +10,8 @@
     </button>
     </div>
 {% endfor %}
-
-<p><a href="{{url_for('accounts.login')}}">Click here</a> to login again.</p>
+<div style="margin-left: 50px">
+<p><a href="{{url_for('accounts.login')}} " role="button" style="color: white; border: 1px solid white; padding: 5px; text-align: center; background-color: #008ECC">LOGIN AGAIN</a> to login again.</p>
+</div>
 
 {%endblock content%}

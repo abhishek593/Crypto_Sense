@@ -77,7 +77,7 @@
                     </div>
                     <br>
                 </form>
-        <button onclick="getOption()" class="btn btn-outline-info">
+        <button onclick="getOption()" class="btn btn-primary ">
                 Check Price
         </button>
         <form method='POST' onsubmit="send();" action="{{ url_for('investments.confirm_sell', username=current_user.username ) }}" name="myform">
