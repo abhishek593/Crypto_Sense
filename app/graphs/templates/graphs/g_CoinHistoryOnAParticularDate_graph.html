@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    .bground {
+        background-color: #33001a;
+    }
+</style>
 <div class="container">
     <br>
     <div class="content-section">
-        <canvas id="chart1" width="600" height="400"></canvas>
+        <div class="bground">
+            <canvas id="chart1" width="600" height="400"></canvas>
+        </div>
         <br><br><br>
-        <canvas id="chart2" width="600" height="400"></canvas>
+        <div class="bground">
+            <canvas id="chart2" width="600" height="400"></canvas>
+        </div>
     <script>
         var label_a = {{ labels|tojson }};
         var price_a = {{ prices|tojson }};
