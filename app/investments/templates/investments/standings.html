@@ -1,7 +1,60 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% for stand in standings %}
-{{ stand[0]}} {{stand[1]}}
-{% endfor %}
+<style>
+	.content-table{
+		min-height: 300px;
+		min-width: 1000px;
+        border-collapse: collapse;
+        margin-top:20vh;
+        font-size: 1.5em;
+        color: #fff;
+        min-width: : 400px;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0,0,0,0.15);
+      }
+      .content-table thead tr{
+        background-color: #0E4D92;
+        color: #ffffff;
+        text-align: left;
+        font-weight: bold;
+      }
+      .content-table td{
+        padding: 12px 15px;
+      }
+      .content-table th{
+      	padding: 15px 15px;
+      }
+      .content-table tbody tr{
+        border-bottom: 1px solid #dddddd;
+      }
+      .content-table tbody tr{
+        background-color: #f3f3f3;
+        opacity: 0.8;
+       	color: #000000;
+      }
+      .content-table tbody tr:last-of-type{
+        border-bottom: 4px solid #0E4D92;
+      }
+</style>
+<center>
+<div class="container">
+<table class="content-table">
+    <thead>
+    	  <th height="20px">Rank</th>
+          <th height="20px">User</th>
+          <th height="20px">Profit</th>
+    </thead>
+    	{% for stand in standings %}
+       <tr>
+       	<td>{{loop.index}}</td>
+       <td style="text-transform: uppercase">
+       {{stand[1]}}</td>
+       <td>{{stand[0]}} USD</td>
+       </tr>
+    	{% endfor %}
+</table>
+</div>
+</center>
 {% endblock content %}
